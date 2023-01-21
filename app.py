@@ -1,4 +1,4 @@
-from flask import Flask, make_response, render_template, session
+from flask import Flask, make_response, render_template, session, request, redirect
 
 app = Flask(__name__)
 app.secret_key = "moj sekretny klucz"
@@ -13,3 +13,16 @@ def index():
     response.set_cookie('kamil_ciasteczko', value="bylem tutaj, Tony Halik")
 
     return response
+
+@app.route('/login', methods=["POST", "GET"])
+def login():
+    correct_user = False
+
+    if request.method == "POST":
+        # zweryfikowac dane z formularza
+        if correct_user:
+            return redirect("/")
+        else:
+            return render_template("error.html")
+    else:
+        return render_template("login.html")

@@ -1,0 +1,6 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <strong>Invalid login attempt</strong>
+    <a href="{{ url_for('login') }}">go back to the login page</a>
+{% endblock %}
