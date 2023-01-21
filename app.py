@@ -9,9 +9,10 @@ app.secret_key = "moj sekretny klucz"
 def index():
 
     ile_razy = session.get('ktory_raz_jestem', default=1)
+    user = session.get('user', default="Nieznany")
     session['ktory_raz_jestem'] = ile_razy + 1
 
-    response = make_response(render_template("index.html", visits = ile_razy))
+    response = make_response(render_template("index.html", visits = ile_razy, user = user))
     response.set_cookie('kamil_ciasteczko', value="bylem tutaj, Tony Halik")
 
     return response
@@ -34,8 +35,15 @@ def login():
         password = request.form.get(key="password")
         correct_user = check_credentials(login, password)
         if correct_user:
+            session['user'] = login
             return redirect("/")
         else:
+            session.clear()
             return render_template("error.html")
     else:
         return render_template("login.html")
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect("/")

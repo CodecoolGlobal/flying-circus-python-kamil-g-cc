@@ -6,8 +6,11 @@
 </head>
 <body>
 {% block content %}
-<h1>Welcome</h1>
-<h2>To już {{ visits }} raz jesteś tutaj  :)</h2>
+    <h1>Welcome</h1>
+    <h2>To już {{ visits }} raz jesteś tutaj odkąd zalogowałeś się :)</h2>
+    <h3>Widzę Ciebie jako: {{ user }}</h3>
+    <a href="{{ url_for('logout') }}">Wyloguj się</a>
+    <a href="{{ url_for('login') }}">Przejdź do formularza logowania</a>
 {% endblock %}
 </body>
 </html>
